@@ -8,7 +8,7 @@ import {
     WalletDisconnectButton,
     WalletMultiButton
 } from '@solana/wallet-adapter-react-ui';
-import { clusterApiUrl } from '@solana/web3.js';
+import { clusterApiUrl, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 
 export function App() {
 
@@ -25,11 +25,55 @@ export function App() {
                 <WalletModalProvider>
                   <Topbar />
                   <Portfolio/>
+                  <Send/>
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
     );
 }
+
+function Send() {
+const { publicKey , sendTransaction } = useWallet();
+const { connection } = useConnection();
+return <div>
+    <input id ="recipient" type="text" placeholder="wallet address" />
+    <input id ="amount" type="number" placeholder="Amount" />
+    <button onClick={async () => {
+      const recipientValue = (document.getElementById("recipient") as HTMLInputElement).value;
+      const amountValue = (document.getElementById("amount") as HTMLInputElement).value;
+      
+      if (!recipientValue || !amountValue) {
+        alert("Please enter both recipient address and amount");
+        return;
+      }
+      
+      try {
+        const recipient = new PublicKey(recipientValue);
+        const lamports = parseInt(amountValue) * LAMPORTS_PER_SOL;
+        
+        const transaction = new Transaction().add(
+          SystemProgram.transfer({
+            fromPubkey: publicKey!,
+            toPubkey: recipient,
+            lamports: lamports,
+          })
+        );
+
+
+        if (publicKey && sendTransaction) {
+            sendTransaction(transaction, connection);
+        }
+      } catch (error) {
+        alert("Invalid recipient address or amount");
+        console.error("Transaction error:", error);
+      }
+    }}>Send</button>
+</div>
+  
+
+
+}
+
 
 function Topbar() {
   const { publicKey } = useWallet();
