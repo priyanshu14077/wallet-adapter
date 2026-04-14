@@ -1,2 +1,5 @@
 [serve.static]
 env = "BUN_PUBLIC_*"
+
+# To use Unsplash, set your API key:
+# BUN_PUBLIC_UNSPLASH_ACCESS_KEY=your_access_key_here
