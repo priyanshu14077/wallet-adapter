@@ -5,9 +5,12 @@ import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
 
 import { Layout } from '@/components/Layout';
 import { Background } from '@/components/Background';
+import { Home } from '@/pages/Home';
 import { Portfolio } from '@/pages/Portfolio';
 import { Send } from '@/pages/Send';
 import { Sign } from '@/pages/Sign';
+import { Settings as SettingsPage } from '@/pages/Settings';
+import { Docs } from '@/pages/Docs';
 
 const endpoint = "https://mainnet.helius-rpc.com/?api-key=24c9eb0e-10ff-4b9f-8557-6bbb47da2ee5";
 
@@ -24,10 +27,12 @@ export function App() {
             <Background />
             <Layout>
               <Routes>
-                <Route path="/" element={<Navigate to="/portfolio" replace />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/send" element={<Send />} />
                 <Route path="/sign" element={<Sign />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/docs" element={<Docs />} />
               </Routes>
             </Layout>
           </WalletModalProvider>

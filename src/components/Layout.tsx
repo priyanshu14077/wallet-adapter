@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { LayoutDashboard, Send, Signature, Zap } from 'lucide-react';
+import { LayoutDashboard, Send, Signature, Zap, Home, Settings, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LayoutProps {
@@ -10,9 +10,12 @@ interface LayoutProps {
 }
 
 const navItems = [
+  { path: '/', label: 'Home', icon: Home },
   { path: '/portfolio', label: 'Portfolio', icon: LayoutDashboard },
   { path: '/send', label: 'Send', icon: Send },
   { path: '/sign', label: 'Sign', icon: Signature },
+  { path: '/docs', label: 'Docs', icon: BookOpen },
+  { path: '/settings', label: 'Settings', icon: Settings },
 ];
 
 export function Layout({ children }: LayoutProps) {
